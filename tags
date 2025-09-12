@@ -1,0 +1,45 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CalculaOutcode	UnitPrincipal.pas	/^  function CalculaOutcode(x, y: Double): Byte;$/;"	f
+CohenSutherland	UnitPrincipal.pas	/^    procedure CohenSutherland(var x1, y1, x2, y2: Double; xmin, ymin, xmax, ymax: Double);$/;"	p
+DesenhaCohenSutherland	UnitPrincipal.pas	/^    procedure DesenhaCohenSutherland;$/;"	p
+DesenharCirculoEquacaoPadrao	UnitPrincipal.pas	/^    procedure DesenharCirculoEquacaoPadrao;$/;"	p
+DesenharCirculoParametrica	UnitPrincipal.pas	/^    procedure DesenharCirculoParametrica;$/;"	p
+DesenharCirculoRotacao	UnitPrincipal.pas	/^    procedure DesenharCirculoRotacao;$/;"	p
+DesenharLinhaSimples	UnitPrincipal.pas	/^    procedure DesenharLinhaSimples(x1, y1, x2, y2: Integer; Cor: TColor);$/;"	p
+FormCreate	UnitPrincipal.pas	/^    procedure FormCreate(Sender: TObject);$/;"	p
+Image1MouseDown	UnitPrincipal.pas	/^    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;$/;"	p
+Image1MouseMove	UnitPrincipal.pas	/^    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,$/;"	p
+Image1MouseUp	UnitPrincipal.pas	/^    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;$/;"	p
+LimparTela	UnitPrincipal.pas	/^    procedure LimparTela;$/;"	p
+MenuCirculoEquacaoPadraoClick	UnitPrincipal.pas	/^    procedure MenuCirculoEquacaoPadraoClick(Sender: TObject);$/;"	p
+MenuCirculoParametricaClick	UnitPrincipal.pas	/^    procedure MenuCirculoParametricaClick(Sender: TObject);$/;"	p
+MenuCirculoRotacaoClick	UnitPrincipal.pas	/^    procedure MenuCirculoRotacaoClick(Sender: TObject);$/;"	p
+MenuCohenSutherlandClick	UnitPrincipal.pas	/^    procedure MenuCohenSutherlandClick(Sender: TObject);$/;"	p
+MenuLimparClick	UnitPrincipal.pas	/^    procedure MenuLimparClick(Sender: TObject);$/;"	p
+MenuLinhaSimplesClick	UnitPrincipal.pas	/^    procedure MenuLinhaSimplesClick(Sender: TObject);$/;"	p
+MenuResetarCohenClick	UnitPrincipal.pas	/^    procedure MenuResetarCohenClick(Sender: TObject);$/;"	p
+MenuSairClick	UnitPrincipal.pas	/^    procedure MenuSairClick(Sender: TObject);$/;"	p
+TFormPrincipal.CohenSutherland	UnitPrincipal.pas	/^procedure TFormPrincipal.CohenSutherland(var x1, y1, x2, y2: Double; xmin, ymin, xmax, ymax: Double);$/;"	p
+TFormPrincipal.DesenhaCohenSutherland	UnitPrincipal.pas	/^procedure TFormPrincipal.DesenhaCohenSutherland;$/;"	p
+TFormPrincipal.DesenharCirculoEquacaoPadrao	UnitPrincipal.pas	/^procedure TFormPrincipal.DesenharCirculoEquacaoPadrao;$/;"	p
+TFormPrincipal.DesenharCirculoParametrica	UnitPrincipal.pas	/^procedure TFormPrincipal.DesenharCirculoParametrica;$/;"	p
+TFormPrincipal.DesenharCirculoRotacao	UnitPrincipal.pas	/^procedure TFormPrincipal.DesenharCirculoRotacao;$/;"	p
+TFormPrincipal.DesenharLinhaSimples	UnitPrincipal.pas	/^procedure TFormPrincipal.DesenharLinhaSimples(x1, y1, x2, y2: Integer; Cor: TColor);$/;"	p
+TFormPrincipal.FormCreate	UnitPrincipal.pas	/^procedure TFormPrincipal.FormCreate(Sender: TObject);$/;"	p
+TFormPrincipal.Image1MouseDown	UnitPrincipal.pas	/^procedure TFormPrincipal.Image1MouseDown(Sender: TObject; Button: TMouseButton;$/;"	p
+TFormPrincipal.Image1MouseMove	UnitPrincipal.pas	/^procedure TFormPrincipal.Image1MouseMove(Sender: TObject; Shift: TShiftState; X,$/;"	p
+TFormPrincipal.Image1MouseUp	UnitPrincipal.pas	/^procedure TFormPrincipal.Image1MouseUp(Sender: TObject; Button: TMouseButton;$/;"	p
+TFormPrincipal.LimparTela	UnitPrincipal.pas	/^procedure TFormPrincipal.LimparTela;$/;"	p
+TFormPrincipal.MenuCirculoEquacaoPadraoClick	UnitPrincipal.pas	/^procedure TFormPrincipal.MenuCirculoEquacaoPadraoClick(Sender: TObject);$/;"	p
+TFormPrincipal.MenuCirculoParametricaClick	UnitPrincipal.pas	/^procedure TFormPrincipal.MenuCirculoParametricaClick(Sender: TObject);$/;"	p
+TFormPrincipal.MenuCirculoRotacaoClick	UnitPrincipal.pas	/^procedure TFormPrincipal.MenuCirculoRotacaoClick(Sender: TObject);$/;"	p
+TFormPrincipal.MenuCohenSutherlandClick	UnitPrincipal.pas	/^procedure TFormPrincipal.MenuCohenSutherlandClick(Sender: TObject);$/;"	p
+TFormPrincipal.MenuLimparClick	UnitPrincipal.pas	/^procedure TFormPrincipal.MenuLimparClick(Sender: TObject);$/;"	p
+TFormPrincipal.MenuLinhaSimplesClick	UnitPrincipal.pas	/^procedure TFormPrincipal.MenuLinhaSimplesClick(Sender: TObject);$/;"	p
+TFormPrincipal.MenuResetarCohenClick	UnitPrincipal.pas	/^procedure TFormPrincipal.MenuResetarCohenClick(Sender: TObject);$/;"	p
+TFormPrincipal.MenuSairClick	UnitPrincipal.pas	/^procedure TFormPrincipal.MenuSairClick(Sender: TObject);$/;"	p

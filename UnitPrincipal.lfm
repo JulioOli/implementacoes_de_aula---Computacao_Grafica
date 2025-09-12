@@ -1,0 +1,83 @@
+object FormPrincipal: TFormPrincipal
+  Left = 272
+  Height = 600
+  Top = 124
+  Width = 800
+  Caption = 'Projeto Integrado - Computação Gráfica'
+  ClientHeight = 600
+  ClientWidth = 800
+  Menu = MainMenu1
+  WindowState = wsNormal
+  LCLVersion = '3.2.0.0'
+  object Image1: TImage
+    Left = 0
+    Height = 600
+    Top = 0
+    Width = 800
+    Align = alClient
+    OnMouseDown = Image1MouseDown
+    OnMouseMove = Image1MouseMove
+    OnMouseUp = Image1MouseUp
+  end
+  object MainMenu1: TMainMenu
+    Left = 40
+    Top = 40
+    object MenuFuncionalidades: TMenuItem
+      Caption = 'Funcionalidades'
+      object MenuCirculos: TMenuItem
+        Caption = 'Círculos'
+        object MenuCirculoEquacaoPadrao: TMenuItem
+          Caption = 'Circunf. por Equação Padrão'
+          OnClick = MenuCirculoEquacaoPadraoClick
+        end
+        object MenuCirculoParametrica: TMenuItem
+          Caption = 'Circunf. por Eq. Paramétrica'
+          OnClick = MenuCirculoParametricaClick
+        end
+        object MenuCirculoRotacao: TMenuItem
+          Caption = 'Circunf. por Rotação'
+          OnClick = MenuCirculoRotacaoClick
+        end
+      end
+      object MenuLinhas: TMenuItem
+        Caption = 'Linhas'
+        object MenuLinhaSimples: TMenuItem
+          Caption = 'Desenhar Linhas'
+          OnClick = MenuLinhaSimplesClick
+        end
+      end
+      object MenuAlgoritmosRecorte: TMenuItem
+        Caption = 'Algoritmos de Recorte de Retas'
+        object MenuCohenSutherland: TMenuItem
+          Caption = 'Cohen-Sutherland'
+          OnClick = MenuCohenSutherlandClick
+        end
+        object MenuLiangBarsky: TMenuItem
+          Caption = 'Liang-Barsky (Em breve)'
+          Enabled = False
+        end
+        object MenuSeparadorAlg: TMenuItem
+          Caption = '-'
+        end
+        object MenuResetarCohen: TMenuItem
+          Caption = 'Resetar Algoritmo'
+          OnClick = MenuResetarCohenClick
+        end
+      end
+      object MenuSeparador1: TMenuItem
+        Caption = '-'
+      end
+      object MenuLimpar: TMenuItem
+        Caption = 'Limpar Tela'
+        OnClick = MenuLimparClick
+      end
+      object MenuSeparador2: TMenuItem
+        Caption = '-'
+      end
+      object MenuSair: TMenuItem
+        Caption = 'Sair'
+        OnClick = MenuSairClick
+      end
+    end
+  end
+end

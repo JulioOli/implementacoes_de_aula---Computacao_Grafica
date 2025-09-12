@@ -1,0 +1,29 @@
+# Lazarus/FreePascal compiled files
+*.compiled
+*.o
+*.or
+*.ppu
+*.res
+lib/
+backup/
+*.lps
+*.exe
+
+# IDE specific files
+*.cfg
+*.dsk
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*~
+*.tmp
+*.bak
+
+# Debug files
+*.dbg
+
+# Executable file
+ProjetoIntegrado
