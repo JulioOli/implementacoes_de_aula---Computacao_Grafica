@@ -38,12 +38,24 @@ object FormPrincipal: TFormPrincipal
           Caption = 'Circunf. por Rotação'
           OnClick = MenuCirculoRotacaoClick
         end
+        object MenuCirculoBresenham: TMenuItem
+          Caption = 'Circunf. por Bresenham'
+          OnClick = MenuCirculoBresenhamClick
+        end
       end
       object MenuLinhas: TMenuItem
         Caption = 'Linhas'
         object MenuLinhaSimples: TMenuItem
-          Caption = 'Desenhar Linhas'
+          Caption = 'Desenhar Linhas (Simples)'
           OnClick = MenuLinhaSimplesClick
+        end
+        object MenuLinhaEquacaoGeral: TMenuItem
+          Caption = 'Linha por Equação Geral'
+          OnClick = MenuLinhaEquacaoGeralClick
+        end
+        object MenuLinhaParametrica: TMenuItem
+          Caption = 'Linha por Eq. Paramétrica'
+          OnClick = MenuLinhaParametricaClick
         end
       end
       object MenuAlgoritmosRecorte: TMenuItem
