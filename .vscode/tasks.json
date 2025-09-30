@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Compilar Projeto Lazarus",
+      "type": "shell",
+      "command": "C:\\lazarus\\lazbuild.exe",
+      "args": [
+        "ProjetoIntegrado.lpi"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "C\\\\lazarus;C\\\\lazarus\\\\fpc\\\\3.2.2\\\\bin\\\\x86_64-win64;${env:PATH}"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Executar Projeto Lazarus",
+      "type": "process",
+      "command": "${workspaceFolder}\\ProjetoIntegrado.exe",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "Compilar Projeto Lazarus",
+      "problemMatcher": []
+    }
+  ]
+}

@@ -5,11 +5,22 @@ unit UnitPrincipal;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Math;
+  Classes, SysUtils, Types, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus, Math;
 
 type
   // Enumeração para os modos de funcionamento
-  TModoOperacao = (moCirculos, moLinhas, moLinhaEquacaoGeral, moLinhaParametrica, moCohenSutherland, moBresenham, moNenhum);
+  {**
+    Enumeração que define o modo de operação atual da aplicação.
+    Adicionamos novos modos para as práticas de preenchimento de polígonos:
+      * moEdgeFill: aplica o algoritmo de inversão de cores dentro de um polígono
+        (edge‑fill) usando o bounding box e a regra par‑ímpa.
+      * moFloodFill4: modo para preenchimento por inundação usando a vizinhança 4.
+      * moFloodFill8: modo para preenchimento por inundação usando a vizinhança 8.
+    A posição de moNenhum é mantida como último valor para representar estado neutro.
+  *}
+  TModoOperacao = (moCirculos, moLinhas, moLinhaEquacaoGeral, moLinhaParametrica,
+                   moCohenSutherland, moBresenham, moEdgeFill, moFloodFill4, moFloodFill8,
+                   moNenhum);
 
   { TFormPrincipal }
 
@@ -33,6 +44,11 @@ type
     MenuResetarCohen: TMenuItem;
     MenuSair: TMenuItem;
     MenuLimpar: TMenuItem;
+    { Itens de menu para as práticas de preenchimento }
+    MenuPreenchimento: TMenuItem;
+    MenuEdgeFill: TMenuItem;
+    MenuFloodFill4: TMenuItem;
+    MenuFloodFill8: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -51,6 +67,9 @@ type
     procedure MenuResetarCohenClick(Sender: TObject);
     procedure MenuSairClick(Sender: TObject);
     procedure MenuLimparClick(Sender: TObject);
+    procedure MenuEdgeFillClick(Sender: TObject);
+    procedure MenuFloodFill4Click(Sender: TObject);
+    procedure MenuFloodFill8Click(Sender: TObject);
   private
     ModoAtual: TModoOperacao;
     
@@ -68,6 +87,15 @@ type
     CentroCirculo: TPoint;
     IsDefiningCircle: Boolean;
     EstadoBresenham: Integer; // 0: Definir Centro, 1: Definir Raio
+
+    // Variáveis para Flood Fill
+    BorderColor, FillColor: TColor;
+    FloodUse8: Boolean;
+    FloodBounds: TRect;
+
+    // Métodos auxiliares de preenchimento
+    procedure EdgeFillInvert(const Poly: array of TPoint);
+    procedure FloodFill(x, y: Integer; Use8: Boolean);
     
     // Métodos auxiliares
     procedure LimparTela;
@@ -117,6 +145,32 @@ begin
   MenuResetarCohen.Caption := 'Resetar Algoritmo';
   MenuLimpar.Caption := 'Limpar Tela';
   MenuSair.Caption := 'Sair';
+
+  { Cria menu para as práticas de preenchimento de polígonos.
+    Estas entradas são criadas em tempo de execução para evitar a necessidade
+    de modificar o arquivo .lfm manualmente. Elas ficam agrupadas dentro de
+    "Funcionalidades" para manter a organização. }
+  MenuPreenchimento := TMenuItem.Create(MainMenu1);
+  MenuPreenchimento.Caption := 'Preenchimento';
+  MenuFuncionalidades.Add(MenuPreenchimento);
+
+  // Subitem para o algoritmo de inversão de cores (edge fill)
+  MenuEdgeFill := TMenuItem.Create(MainMenu1);
+  MenuEdgeFill.Caption := 'Inversão de Cores (Edge Fill)';
+  MenuEdgeFill.OnClick := @MenuEdgeFillClick;
+  MenuPreenchimento.Add(MenuEdgeFill);
+
+  // Subitem para o algoritmo de flood fill com vizinhança 4
+  MenuFloodFill4 := TMenuItem.Create(MainMenu1);
+  MenuFloodFill4.Caption := 'Flood Fill (Vizinhança 4)';
+  MenuFloodFill4.OnClick := @MenuFloodFill4Click;
+  MenuPreenchimento.Add(MenuFloodFill4);
+
+  // Subitem para o algoritmo de flood fill com vizinhança 8
+  MenuFloodFill8 := TMenuItem.Create(MainMenu1);
+  MenuFloodFill8.Caption := 'Flood Fill (Vizinhança 8)';
+  MenuFloodFill8.OnClick := @MenuFloodFill8Click;
+  MenuPreenchimento.Add(MenuFloodFill8);
   
   // Inicializar variáveis
   ModoAtual := moNenhum;
@@ -128,6 +182,7 @@ begin
   
   // Limpa e prepara a tela
   LimparTela;
+  FloodBounds := Rect(0, 0, Image1.Width, Image1.Height);
 end;
 
 procedure TFormPrincipal.LimparTela;
@@ -146,11 +201,199 @@ begin
   CohenAtivadoPorClick := False;
   IsDefiningCircle := False;
   EstadoBresenham := 0;
+
+  // Reseta variáveis de preenchimento
+  FloodUse8 := False;
+  BorderColor := clBlack;
+  FillColor := clWhite;
+  FloodBounds := Rect(0, 0, Image1.Width, Image1.Height);
 end;
 
 procedure TFormPrincipal.MenuSairClick(Sender: TObject);
 begin
   Application.Terminate;
+end;
+
+{ Manipuladores para os itens de menu de preenchimento }
+
+procedure TFormPrincipal.MenuEdgeFillClick(Sender: TObject);
+var
+  Poly: array[0..4] of TPoint;
+  w, h: Integer;
+begin
+  // Configura o modo e limpa a tela
+  ModoAtual := moEdgeFill;
+  LimparTela;
+
+  // Define um polígono simples baseado no tamanho atual da imagem
+  w := Image1.Width;
+  h := Image1.Height;
+  Poly[0] := Point(w div 2, h div 8);
+  Poly[1] := Point(7 * w div 8, h div 3);
+  Poly[2] := Point(5 * w div 8, 7 * h div 8);
+  Poly[3] := Point(w div 8, 7 * h div 8);
+  Poly[4] := Point(w div 8, h div 3);
+
+  // Desenha as arestas do polígono em preto
+  Image1.Canvas.Pen.Color := clBlack;
+  Image1.Canvas.Brush.Style := bsClear;
+  Image1.Canvas.Polygon(Poly);
+
+  // Aplica o preenchimento por inversão de cores
+  EdgeFillInvert(Poly);
+
+  ShowMessage('Algoritmo de inversão de cores concluído!');
+end;
+
+procedure TFormPrincipal.MenuFloodFill4Click(Sender: TObject);
+var
+  TestBitmap: TBitmap;
+  destRect: TRect;
+  destWidth, destHeight: Integer;
+  offsetX, offsetY: Integer;
+  borderRight, borderBottom: Integer;
+  innerLeft, innerTop, innerRight, innerBottom: Integer;
+
+  function ClampInt(Value, MinVal, MaxVal: Integer): Integer;
+  begin
+    if Value < MinVal then
+      Result := MinVal
+    else if Value > MaxVal then
+      Result := MaxVal
+    else
+      Result := Value;
+  end;
+begin
+  // Configura modo e define vizinhança 4
+  ModoAtual := moFloodFill4;
+  FloodUse8 := False;
+  BorderColor := clBlack;
+  FillColor := clYellow;
+
+  // Prepara plano de fundo
+  LimparTela;
+  Image1.Canvas.Brush.Color := clWhite;
+  Image1.Canvas.FillRect(Image1.ClientRect);
+
+  if FileExists('Flood.bmp') then
+  begin
+    TestBitmap := TBitmap.Create;
+    try
+      TestBitmap.LoadFromFile('Flood.bmp');
+
+      destWidth := Min(TestBitmap.Width, Image1.Width);
+      destHeight := Min(TestBitmap.Height, Image1.Height);
+      offsetX := Max((Image1.Width - destWidth) div 2, 0);
+      offsetY := Max((Image1.Height - destHeight) div 2, 0);
+      destRect := Rect(offsetX, offsetY, offsetX + destWidth, offsetY + destHeight);
+
+      Image1.Canvas.StretchDraw(destRect, TestBitmap);
+
+      Image1.Canvas.Brush.Style := bsClear;
+      Image1.Canvas.Pen.Color := BorderColor;
+      borderRight := Min(destRect.Right, Image1.Width - 1);
+      borderBottom := Min(destRect.Bottom, Image1.Height - 1);
+      Image1.Canvas.Rectangle(destRect.Left, destRect.Top, borderRight + 1, borderBottom + 1);
+      Image1.Canvas.Brush.Style := bsSolid;
+    finally
+      TestBitmap.Free;
+    end;
+  end
+  else
+  begin
+    destRect := Rect(Image1.Width div 4, Image1.Height div 4,
+                     Image1.Width - Image1.Width div 4,
+                     Image1.Height - Image1.Height div 4);
+    Image1.Canvas.Brush.Style := bsClear;
+    Image1.Canvas.Pen.Color := BorderColor;
+    borderRight := Min(destRect.Right, Image1.Width - 1);
+    borderBottom := Min(destRect.Bottom, Image1.Height - 1);
+    Image1.Canvas.Rectangle(destRect.Left, destRect.Top, borderRight + 1, borderBottom + 1);
+    Image1.Canvas.Brush.Style := bsSolid;
+  end;
+
+  innerLeft := ClampInt(destRect.Left + 1, 0, Image1.Width - 1);
+  innerTop := ClampInt(destRect.Top + 1, 0, Image1.Height - 1);
+  innerRight := ClampInt(borderRight, innerLeft + 1, Image1.Width);
+  innerBottom := ClampInt(borderBottom, innerTop + 1, Image1.Height);
+  FloodBounds := Rect(innerLeft, innerTop, innerRight, innerBottom);
+
+  ShowMessage('Modo Flood Fill (vizinhança 4) ativado. Clique em um ponto dentro da região para preencher.');
+end;
+
+procedure TFormPrincipal.MenuFloodFill8Click(Sender: TObject);
+var
+  TestBitmap: TBitmap;
+  destRect: TRect;
+  destWidth, destHeight: Integer;
+  offsetX, offsetY: Integer;
+  borderRight, borderBottom: Integer;
+  innerLeft, innerTop, innerRight, innerBottom: Integer;
+
+  function ClampInt(Value, MinVal, MaxVal: Integer): Integer;
+  begin
+    if Value < MinVal then
+      Result := MinVal
+    else if Value > MaxVal then
+      Result := MaxVal
+    else
+      Result := Value;
+  end;
+begin
+  // Configura modo e define vizinhança 8
+  ModoAtual := moFloodFill8;
+  FloodUse8 := True;
+  BorderColor := clBlack;
+  FillColor := clAqua;
+
+  LimparTela;
+  Image1.Canvas.Brush.Color := clWhite;
+  Image1.Canvas.FillRect(Image1.ClientRect);
+
+  if FileExists('Flood.bmp') then
+  begin
+    TestBitmap := TBitmap.Create;
+    try
+      TestBitmap.LoadFromFile('Flood.bmp');
+
+      destWidth := Min(TestBitmap.Width, Image1.Width);
+      destHeight := Min(TestBitmap.Height, Image1.Height);
+      offsetX := Max((Image1.Width - destWidth) div 2, 0);
+      offsetY := Max((Image1.Height - destHeight) div 2, 0);
+      destRect := Rect(offsetX, offsetY, offsetX + destWidth, offsetY + destHeight);
+
+      Image1.Canvas.StretchDraw(destRect, TestBitmap);
+
+      Image1.Canvas.Brush.Style := bsClear;
+      Image1.Canvas.Pen.Color := BorderColor;
+      borderRight := Min(destRect.Right, Image1.Width - 1);
+      borderBottom := Min(destRect.Bottom, Image1.Height - 1);
+      Image1.Canvas.Rectangle(destRect.Left, destRect.Top, borderRight + 1, borderBottom + 1);
+      Image1.Canvas.Brush.Style := bsSolid;
+    finally
+      TestBitmap.Free;
+    end;
+  end
+  else
+  begin
+    destRect := Rect(Image1.Width div 4, Image1.Height div 4,
+                     Image1.Width - Image1.Width div 4,
+                     Image1.Height - Image1.Height div 4);
+    Image1.Canvas.Brush.Style := bsClear;
+    Image1.Canvas.Pen.Color := BorderColor;
+    borderRight := Min(destRect.Right, Image1.Width - 1);
+    borderBottom := Min(destRect.Bottom, Image1.Height - 1);
+    Image1.Canvas.Rectangle(destRect.Left, destRect.Top, borderRight + 1, borderBottom + 1);
+    Image1.Canvas.Brush.Style := bsSolid;
+  end;
+
+  innerLeft := ClampInt(destRect.Left + 1, 0, Image1.Width - 1);
+  innerTop := ClampInt(destRect.Top + 1, 0, Image1.Height - 1);
+  innerRight := ClampInt(borderRight, innerLeft + 1, Image1.Width);
+  innerBottom := ClampInt(borderBottom, innerTop + 1, Image1.Height);
+  FloodBounds := Rect(innerLeft, innerTop, innerRight, innerBottom);
+
+  ShowMessage('Modo Flood Fill (vizinhança 8) ativado. Clique em um ponto dentro da região para preencher.');
 end;
 
 { Funcionalidades de Círculos }
@@ -577,6 +820,257 @@ begin
   end;
 end;
 
+{------------------------------------------------------------------------------
+  Preenchimento por Inversão de Cores (Edge Fill)
+
+  Este método utiliza a abordagem de scanline com bounding box para
+  inverter a cor de todos os pixels internos a um polígono simples.
+  Para cada linha de varredura dentro da caixa delimitadora, são
+  calculadas as interseções com as arestas do polígono (ignorando
+  arestas horizontais). A lista de interseções é ordenada e, para
+  cada par consecutivo, os pixels compreendidos são invertidos.
+------------------------------------------------------------------------------}
+procedure TFormPrincipal.EdgeFillInvert(const Poly: array of TPoint);
+var
+  i, j, n: Integer;
+  minY, maxY, y: Integer;
+  yTop, yBottom: Integer;
+  x1, y1, x2, y2: Integer;
+  t, interX: Double;
+  intersections: array of Double;
+  idx: Integer;
+  xStart, xEnd, x: Integer;
+  oldColor, r, g, b: LongInt;
+  newColor: TColor;
+  widthMax, heightMax: Integer;
+begin
+  n := Length(Poly);
+  if n < 3 then Exit;
+
+  // Determina os limites em Y (bounding box)
+  minY := Poly[0].Y;
+  maxY := Poly[0].Y;
+  for i := 1 to n - 1 do
+  begin
+    if Poly[i].Y < minY then minY := Poly[i].Y;
+    if Poly[i].Y > maxY then maxY := Poly[i].Y;
+  end;
+
+  // Garante que os limites não extrapolem a tela
+  if minY < 0 then minY := 0;
+  if maxY > Image1.Height - 1 then maxY := Image1.Height - 1;
+
+  widthMax := Image1.Width - 1;
+  heightMax := Image1.Height - 1;
+
+  // Varre cada linha entre minY e maxY
+  for y := minY to maxY do
+  begin
+    // Limpa interseções
+    SetLength(intersections, 0);
+    // Calcula interseções com cada aresta
+    for i := 0 to n - 1 do
+    begin
+      j := (i + 1) mod n;
+      x1 := Poly[i].X;
+      y1 := Poly[i].Y;
+      x2 := Poly[j].X;
+      y2 := Poly[j].Y;
+
+      // Ignora arestas horizontais
+      if y1 = y2 then
+        Continue;
+
+      // Determina vértices superior e inferior da aresta
+      if y1 < y2 then
+      begin
+        yTop := y1;
+        yBottom := y2;
+      end
+      else
+      begin
+        yTop := y2;
+        yBottom := y1;
+      end;
+
+      // Regra top‑inclusive, bottom‑exclusive
+      if (y < yTop) or (y >= yBottom) then
+        Continue;
+
+      // Calcula interseção da linha de varredura com a aresta
+      // t = (y - y1) / (y2 - y1)
+      t := (y - y1) / (y2 - y1);
+      interX := x1 + t * (x2 - x1);
+
+      // Armazena interseção
+      SetLength(intersections, Length(intersections) + 1);
+      intersections[High(intersections)] := interX;
+    end;
+
+    // Ordena a lista de interseções (método de ordenação simples)
+    if Length(intersections) > 1 then
+    begin
+      for i := 0 to High(intersections) - 1 do
+        for j := i + 1 to High(intersections) do
+          if intersections[i] > intersections[j] then
+          begin
+            t := intersections[i];
+            intersections[i] := intersections[j];
+            intersections[j] := t;
+          end;
+    end;
+
+    // Percorre pares de interseções
+    idx := 0;
+    while idx + 1 <= High(intersections) do
+    begin
+      xStart := Ceil(intersections[idx]);
+      xEnd := Floor(intersections[idx + 1]);
+      if xStart < 0 then xStart := 0;
+      if xEnd > widthMax then xEnd := widthMax;
+      for x := xStart to xEnd do
+      begin
+        // Inverte a cor do pixel (RGB)
+        oldColor := ColorToRGB(Image1.Canvas.Pixels[x, y]);
+        r := (oldColor and $000000FF);
+        g := (oldColor and $0000FF00) shr 8;
+        b := (oldColor and $00FF0000) shr 16;
+        newColor := RGBToColor(255 - r, 255 - g, 255 - b);
+        Image1.Canvas.Pixels[x, y] := newColor;
+      end;
+      Inc(idx, 2);
+    end;
+  end;
+end;
+
+{------------------------------------------------------------------------------
+  Preenchimento por Inundação (Flood Fill)
+
+  Este método implementa o algoritmo de preenchimento por inundação
+  (seed‑fill/boundary fill) utilizando uma abordagem iterativa para
+  evitar estouro de pilha. O algoritmo inicia em um ponto sementes
+  (x,y) e preenche todos os pixels vizinhos que não sejam da cor da
+  borda e não estejam já preenchidos. Se Use8 for verdadeiro,
+  considera também as diagonais (vizinhança 8). Durante o uso da
+  vizinhança 8, os pixels acessados pelas diagonais são armazenados
+  para posterior destaque.
+------------------------------------------------------------------------------}
+procedure TFormPrincipal.FloodFill(x, y: Integer; Use8: Boolean);
+type
+  TPointArray = array of TPoint;
+var
+  queue: array of TPoint;
+  activeDiag: TPointArray;
+  head, tail, capacity: Integer;
+  pt, np: TPoint;
+  w, h: Integer;
+  dx4: array[0..3] of Integer = (1, -1, 0, 0);
+  dy4: array[0..3] of Integer = (0, 0, 1, -1);
+  dx8: array[0..7] of Integer = (1, -1, 0, 0, 1, 1, -1, -1);
+  dy8: array[0..7] of Integer = (0, 0, 1, -1, 1, -1, 1, -1);
+  i: Integer;
+  currentColor: TColor;
+
+  procedure EnqueuePoint(const P: TPoint; IsDiagonal: Boolean);
+  begin
+    if tail >= capacity then
+    begin
+      capacity := capacity * 2;
+      SetLength(queue, capacity);
+    end;
+    queue[tail] := P;
+    Inc(tail);
+
+    if Use8 and IsDiagonal then
+    begin
+      SetLength(activeDiag, Length(activeDiag) + 1);
+      activeDiag[High(activeDiag)] := P;
+    end;
+  end;
+
+  function InsideBounds(const P: TPoint): Boolean; inline;
+  begin
+    Result :=
+      (P.X >= FloodBounds.Left) and (P.X < FloodBounds.Right) and
+      (P.Y >= FloodBounds.Top) and (P.Y < FloodBounds.Bottom);
+  end;
+
+begin
+  w := Image1.Width;
+  h := Image1.Height;
+
+  if (FloodBounds.Right <= FloodBounds.Left) or (FloodBounds.Bottom <= FloodBounds.Top) then
+    FloodBounds := Rect(0, 0, w, h);
+
+  if not InsideBounds(Point(x, y)) then
+    Exit;
+
+  currentColor := Image1.Canvas.Pixels[x, y];
+  if (ColorToRGB(currentColor) = ColorToRGB(BorderColor)) or
+     (ColorToRGB(currentColor) = ColorToRGB(FillColor)) then
+    Exit;
+
+  capacity := 64;
+  if capacity < 1 then
+    capacity := 1;
+  SetLength(queue, capacity);
+  SetLength(activeDiag, 0);
+
+  head := 0;
+  tail := 0;
+
+  Image1.Canvas.Pixels[x, y] := FillColor;
+  queue[tail] := Point(x, y);
+  Inc(tail);
+
+  while head < tail do
+  begin
+    pt := queue[head];
+    Inc(head);
+
+    if Use8 then
+    begin
+      for i := 0 to 7 do
+      begin
+        np := Point(pt.X + dx8[i], pt.Y + dy8[i]);
+        if InsideBounds(np) then
+        begin
+          currentColor := Image1.Canvas.Pixels[np.X, np.Y];
+          if (ColorToRGB(currentColor) <> ColorToRGB(BorderColor)) and
+             (ColorToRGB(currentColor) <> ColorToRGB(FillColor)) then
+          begin
+            Image1.Canvas.Pixels[np.X, np.Y] := FillColor;
+            EnqueuePoint(np, (Abs(dx8[i]) = 1) and (Abs(dy8[i]) = 1));
+          end;
+        end;
+      end;
+    end
+    else
+    begin
+      for i := 0 to 3 do
+      begin
+        np := Point(pt.X + dx4[i], pt.Y + dy4[i]);
+        if InsideBounds(np) then
+        begin
+          currentColor := Image1.Canvas.Pixels[np.X, np.Y];
+          if (ColorToRGB(currentColor) <> ColorToRGB(BorderColor)) and
+             (ColorToRGB(currentColor) <> ColorToRGB(FillColor)) then
+          begin
+            Image1.Canvas.Pixels[np.X, np.Y] := FillColor;
+            EnqueuePoint(np, False);
+          end;
+        end;
+      end;
+    end;
+  end;
+
+  if Use8 and (Length(activeDiag) > 0) then
+    for i := 0 to High(activeDiag) do
+      if InsideBounds(activeDiag[i]) and
+         (ColorToRGB(Image1.Canvas.Pixels[activeDiag[i].X, activeDiag[i].Y]) = ColorToRGB(FillColor)) then
+        Image1.Canvas.Pixels[activeDiag[i].X, activeDiag[i].Y] := clFuchsia;
+end;
+
 { Eventos de Mouse }
 
 procedure TFormPrincipal.Image1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -621,6 +1115,21 @@ begin
           Image1.Canvas.Brush.Color := clWhite;
           
           ShowMessage('Centro definido! Agora clique em outro ponto para definir o raio.');
+        end;
+      end;
+
+    moEdgeFill:
+      begin
+        // No modo de inversão de cores, o desenho já foi realizado ao clicar no menu.
+        // Não há interação de mouse adicional.
+      end;
+
+    moFloodFill4, moFloodFill8:
+      begin
+        // Realiza flood fill a partir do ponto clicado. Apenas no botão esquerdo.
+        if Button = mbLeft then
+        begin
+          FloodFill(X, Y, FloodUse8);
         end;
       end;
   end;

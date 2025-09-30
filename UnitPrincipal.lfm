@@ -6,6 +6,7 @@ object FormPrincipal: TFormPrincipal
   Caption = 'Projeto Integrado - Computação Gráfica'
   ClientHeight = 600
   ClientWidth = 800
+  OnCreate = FormCreate
   Menu = MainMenu1
   WindowState = wsNormal
   LCLVersion = '3.2.0.0'
