@@ -1,0 +1,92 @@
+Hint: (lazbuild) Primary config path: "C:\Users\augus\AppData\Local\lazarus"
+Hint: (lazarus) [RunTool] "C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" "-iWTOTP"
+Hint: (lazarus) [RunTool] "C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" "-va" "C:\Users\augus\AppData\Local\lazarus\compilertest.pas", WorkDir="C:\Users\augus\AppData\Local\lazarus\"
+Hint: [TPCTargetConfigCache.Update] has changed
+Hint: (lazarus) [RunTool] "C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" "-iWTOTP" "-Px86_64" "-Twin64"
+Hint: (lazarus) [RunTool] "C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" "-va" "C:\Users\augus\AppData\Local\lazarus\compilertest.pas" "-Px86_64" "-Twin64", WorkDir="C:\Users\augus\AppData\Local\lazarus\"
+Hint: [TPCTargetConfigCache.Update] has changed
+Hint: (lazarus) [TBuildManager.SetBuildTarget] Old=x86_64-win64--win32 New=x86_64-win64--win32 Changed: OS/CPU=True LCL=False
+Hint: (lazarus) [TBuildManager.SetBuildTarget] Old=x86_64-win64--win32 New=x86_64-win64--win32 Changed: OS/CPU=True LCL=False
+Hint: (lazarus) Project needs building: Compile was incomplete for Project
+Info: (lazarus) Execute Title="Compilar projeto, Alvo: C:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\ProjetoIntegrado.exe"
+Info: (lazarus) Working Directory="C:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\"
+Info: (lazarus) Executable="C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe"
+Info: (lazarus) Param[0]="-MObjFPC"
+Info: (lazarus) Param[1]="-Scghi"
+Info: (lazarus) Param[2]="-O1"
+Info: (lazarus) Param[3]="-gw3"
+Info: (lazarus) Param[4]="-gl"
+Info: (lazarus) Param[5]="-WG"
+Info: (lazarus) Param[6]="-l"
+Info: (lazarus) Param[7]="-vewnhibq"
+Info: (lazarus) Param[8]="-FiC:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\lib\x86_64-win64"
+Info: (lazarus) Param[9]="-FuC:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\"
+Info: (lazarus) Param[10]="-FuC:\lazarus\lcl\units\x86_64-win64\win32"
+Info: (lazarus) Param[11]="-FuC:\lazarus\lcl\units\x86_64-win64"
+Info: (lazarus) Param[12]="-FuC:\lazarus\components\freetype\lib\x86_64-win64"
+Info: (lazarus) Param[13]="-FuC:\lazarus\components\lazutils\lib\x86_64-win64"
+Info: (lazarus) Param[14]="-FuC:\lazarus\packager\units\x86_64-win64"
+Info: (lazarus) Param[15]="-FUC:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\lib\x86_64-win64\"
+Info: (lazarus) Param[16]="-FEC:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\"
+Info: (lazarus) Param[17]="-oC:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\ProjetoIntegrado.exe"
+Info: (lazarus) Param[18]="-dLCL"
+Info: (lazarus) Param[19]="-dLCLwin32"
+Info: (lazarus) Param[20]="ProjetoIntegrado.lpr"
+Hint: (11030) Start of reading config file C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.cfg
+Hint: (11031) End of reading config file C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.cfg
+Free Pascal Compiler version 3.2.2 [2025/07/19] for x86_64
+Copyright (c) 1993-2021 by Florian Klaempfl and others
+(1002) Target OS: Win64 for x64
+(3104) Compiling ProjetoIntegrado.lpr
+(3104) Compiling UnitPrincipal.pas
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(53,26) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(70,31) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(69,29) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(71,33) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(72,35) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(73,35) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(54,31) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(55,7) Hint: (5024) Parameter "Shift" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(56,31) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(747,34) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(747,66) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(748,20) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(748,50) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(748,76) Warning: (4105) Implicit string type conversion with potential data loss from "UnicodeString" to "AnsiString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(761,34) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(761,66) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(762,20) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(762,50) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(762,76) Warning: (4105) Implicit string type conversion with potential data loss from "UnicodeString" to "AnsiString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(831,36) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(831,71) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(832,33) Warning: (4104) Implicit string type conversion from "AnsiString" to "UnicodeString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(832,59) Warning: (4105) Implicit string type conversion with potential data loss from "UnicodeString" to "AnsiString"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(58,29) Hint: (5024) Parameter "Sender" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(59,7) Hint: (5024) Parameter "Shift" not used
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(60,15) Error: (5005) Forward declaration not solved "MenuCirculoEquacaoPadraoClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(61,15) Error: (5005) Forward declaration not solved "MenuCirculoParametricaClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(62,15) Error: (5005) Forward declaration not solved "MenuCirculoRotacaoClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(63,15) Error: (5005) Forward declaration not solved "MenuCirculoBresenhamClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(64,15) Error: (5005) Forward declaration not solved "MenuLinhaSimplesClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(65,15) Error: (5005) Forward declaration not solved "MenuLinhaEquacaoGeralClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(66,15) Error: (5005) Forward declaration not solved "MenuLinhaParametricaClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(67,15) Error: (5005) Forward declaration not solved "MenuCohenSutherlandClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(68,15) Error: (5005) Forward declaration not solved "MenuResetarCohenClick(TObject);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(98,15) Error: (5005) Forward declaration not solved "EdgeFillInvert(const {Open} Array Of TPoint);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(103,15) Error: (5005) Forward declaration not solved "DesenharLinhaSimples(LongInt;LongInt;LongInt;LongInt;TGraphicsColor);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(104,15) Error: (5005) Forward declaration not solved "DesenharLinhaEquacaoGeral(LongInt;LongInt;LongInt;LongInt);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(105,15) Error: (5005) Forward declaration not solved "DesenharLinhaParametrica(LongInt;LongInt;LongInt;LongInt);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(106,15) Error: (5005) Forward declaration not solved "DesenharCirculoEquacaoPadrao;"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(107,15) Error: (5005) Forward declaration not solved "DesenharCirculoParametrica;"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(108,15) Error: (5005) Forward declaration not solved "DesenharCirculoRotacao;"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(109,15) Error: (5005) Forward declaration not solved "DesenharCirculoBresenham(LongInt;LongInt;LongInt);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(110,15) Error: (5005) Forward declaration not solved "PlotPixelCircle(LongInt;LongInt;LongInt;LongInt;TGraphicsColor);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(111,15) Error: (5005) Forward declaration not solved "CohenSutherland(var Double;var Double;var Double;var Double;Double;Double;Double;Double);"
+C:\Users\augus\OneDrive\?rea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\UnitPrincipal.pas(112,15) Error: (5005) Forward declaration not solved "DesenhaCohenSutherland;"
+UnitPrincipal.pas(846) Fatal: (10026) There were 20 errors compiling module, stopping
+Fatal: (1018) Compilation aborted
+Error: C:\lazarus\fpc\3.2.2\bin\x86_64-win64\ppcx64.exe returned an error exitcode
+Error: (lazarus) Compilar projeto, Alvo: C:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\ProjetoIntegrado.exe: stopped with exit code 1
+Info: (lazarus) [TCompiler.Compile] end
+Error: (lazbuild) Failed compiling of project "C:\Users\augus\OneDrive\햞ea de Trabalho\FACULDADE_DESSA_VEZ_EU_eSTUDO\2SEM2025\CG\teste\ProjetoIntegrado.lpi"
